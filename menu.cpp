@@ -31,7 +31,7 @@ void draw_menu(){
    outtextxy(25, 185, "Очистить");
 }
 
-//Рисование имени файла или искомого слова
+//Рисование имени файла или искомого слова1
 string input_word(const int startX, const int startY, const int endX, const int endY) {
    string a;
    setbkcolor(NO_COLOR);
