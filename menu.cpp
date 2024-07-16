@@ -4,6 +4,7 @@
 #include <vector>
 #include <fstream>
 IMAGE *bgpic;
+IMAGE *pic;
 using namespace std;
 
 int xs1=20, xs2=435;
@@ -126,6 +127,13 @@ void clear_all(){
    draw_menu();
    dx=0, dy=0;
    filename="Noname.txt";
+}
+
+//Перевод изображения в ascii-art
+void generate(){
+   pic=loadBMP(filename.c_str());
+   IMAGE *pig;
+   pig=imageresize(pic, dx,dy, COLORONCOLOR_RESIZE);
 }
 
 //О программе
