@@ -58,37 +58,49 @@ void use_but(int i){
    return;
 }
 
+void draw_cursor(int x, int y, int c) { // рисование мигающего курсора
+   setcolor(c);
+   line(x, y, x, y+textheight("A")-1);
+}
+
 //Рисование имени файла или искомого слова
 string input_word(const int startX, const int startY, const int endX, const int endY, const int i){
-   string a;
    setbkcolor(NO_COLOR);
    setfillstyle(1,WHITE);
    setcolor(BLACK);
    int f=1;// Флаг
    int ch;
+   int cur=0;
    string word;
    int len=word.size();
    int x1=startX, y1 = startY;
    while(1){
-      f=1;
-      if(word.size()>50) f=0;
-      ch = getch();
-      if(ch == KEY_ENTER) break;
-      if(ch==KEY_ESC){
-         if(!i) word="Noname.txt";
-         else word='0';
-         break;
-      }
-      else if (ch == KEY_BACKSPACE && len>0) word.erase(--len, 1);
-      else if (ch>' ' && ch<='z' && f && ch!='*'){
-         if(!i){word+=ch; ++len;}
-         else if(ch>48 && ch<=57){word+=ch; ++len;}
-      }
-      // Вывод текущего ввода
-      bar(startX, startY, endX, endY);
-      rectangle(startX, startY, endX, endY); 
-      outtextxy(x1+5, y1+1, word.c_str());
+      draw_cursor(startX+textwidth(word.c_str())+7, startY+2, cur<10?BLACK:WHITE);
+      cur=(cur+1)%20;
+      if(!kbhit()) delay(50);
+         else {
+            f=1;
+            if(word.size()>50) f=0;
+            ch = getch();
+            if(ch == KEY_ENTER) break;
+            if(ch==KEY_ESC){
+               if(!i) word="Noname.txt";
+               else word='0';
+               break;
+            }
+            else if (ch == KEY_BACKSPACE && len>0) word.erase(--len, 1);
+            else if (ch>' ' && ch<='z' && f && ch!='*'){
+               if(!i){word+=ch; ++len;}
+               else if(ch>48 && ch<=57){word+=ch; ++len;}
+            }
+            // Вывод текущего ввода
+            bar(startX, startY, endX, endY);
+            rectangle(startX, startY, endX, endY); 
+            setcolor(BLACK);
+            outtextxy(x1+5, y1+1, word.c_str());
+         }
    }
+   draw_cursor(startX+textwidth(word.c_str())+7, startY+2, WHITE);
    return word;
 }
 
