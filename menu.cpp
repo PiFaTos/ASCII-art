@@ -2,7 +2,7 @@
 #include<iostream>
 #include<graphics.h>
 #include <vector>
-
+#include <fstream>
 using namespace std;
 
 //Рисование меню
