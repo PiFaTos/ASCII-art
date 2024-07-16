@@ -3,7 +3,7 @@
 #include<graphics.h>
 #include <vector>
 #include <fstream>
-
+IMAGE *bgpic;
 using namespace std;
 
 int xs1=20, xs2=435;
@@ -113,5 +113,13 @@ void clear_all(){
 }
 
 void about_programm(){
+   clearviewport();
+   bgpic = loadBMP("O_programme.bmp");
+   putimage(0, 0, bgpic,COPY_PUT,getmaxx(),getmaxy());
+   swapbuffers();
+   getch(2);// ждать нажатия мыши или клавиатуры
+   clearviewport();
+   draw_menu();
+   swapbuffers();
    return;
 }
