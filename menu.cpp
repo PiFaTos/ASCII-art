@@ -12,38 +12,40 @@ int xs1=20, xs2=435;
 void draw_menu(){
    setcolor(BLACK);
    setbkcolor(NO_COLOR);
-   setfillstyle(1,COLOR(164, 245, 180));
+   setfillstyle(1,COLOR(250, 128, 114));
    bar(0 , 0, wx, wy);
    setfillstyle(1,WHITE);
-   for(int i=0; i<5; ++i){
+   bar(xs1, 60, xs2, 80);
+   rectangle(xs1, 60, xs2, 80);
+   for(int i=1; i<5; ++i){
       int k=i*60;
       if(i==1){
-         bar(xs1, 60+k, xs2/2, 80+k);
-         rectangle(xs1, 60+k, xs2/2, 80+k);
-         bar(xs2-40, 60+k, xs2, 80+k);
-         rectangle(xs2-40, 60+k, xs2, 80+k);
+         bar(xs1, 60+k, xs2/2-10, 80+k);
+         rectangle(xs1, 60+k, xs2/2-10, 80+k);
+         bar(xs2/2+10, 60+k, xs2, 80+k);
+         rectangle(xs2/2+10, 60+k, xs2, 80+k);
       }
       else{
-      bar(xs1, 60+i*40, xs2, 80+i*40);
-      rectangle(xs1, 60+i*40, xs2, 80+i*40);
+      bar(xs1, 60+k, xs2/2-80, 80+k);
+      rectangle(xs1, 60+k, xs2/2-80, 80+k);
       }
    }
-   outtextxy(xs1, 40, "Имя файла");
-   outtextxy(xs1, 85, "Ширина");
-   outtextxy(xs2/2+10, 85, "Высота");
-   outtextxy(xs1+5, 145, "Сгенерировать");
-   outtextxy(xs1+5, 185, "Очистить");
-   outtextxy(xs1+5, 225, "О программе");
+   outtextxy(xs1, 45, "Имя файла");
+   outtextxy(xs1, 105, "Ширина");
+   outtextxy(xs2/2+10, 105, "Высота");
+   outtextxy(xs1+5, 180, "Сгенерировать");
+   outtextxy(xs1+5, 240, "Очистить");
+   outtextxy(xs1+5, 300, "О программе");
 }
 
 //Проверка кнопки
 void prov_pole(int x, int y){
-   if(x>=xs1 && x<=xs2 && y>=140 && y<=160){use_but(1); return;}
-   if(x>=xs1 && x<=xs2 && y>=180 && y<=200){use_but(2); return;}
+   if(x>=xs1 && x<=xs2 && y>=240 && y<=260){use_but(2); return;}
+   if(x>=xs1 && x<=xs2 && y>=180 && y<=200){use_but(1); return;}
    if(x>=xs1 && x<=xs2 && y>=60 && y<=80){filename=input_word(xs1, 60, xs2, 80); return;}
-   if(x>=xs1 && x<=xs2/2 && y>=110 && y<=130){dx=stoi(input_word(xs1, 110, xs2, 130)); return;}
-   if(x>=xs2-40 && x<=xs2 && y>=110 && y<=130){dx=stoi(input_word(xs1, 110, xs2, 130)); return;}
-   if(x>=xs1 && x<=xs2/2 && y>=220 && y<=240){about_programm(); return;}
+   if(x>=xs1 && x<=xs2/2-10 && y>=120 && y<=140){dx=stoi(input_word(xs1, 120, xs2, 140)); return;}
+   if(x>=xs2/2+10 && x<=xs2 && y>=120 && y<=140){dy=stoi(input_word(xs1, 120, xs2, 140)); return;}
+   if(x>=xs1 && x<=xs2/2 && y>=300 && y<=320){about_programm(); return;}
    return;
 }
 
@@ -57,7 +59,7 @@ void use_but(int i){
 }
 
 //Рисование имени файла или искомого слова
-string input_word(const int startX, const int startY, const int endX, const int endY) {
+string input_word(const int startX, const int startY, const int endX, const int endY){
    string a;
    setbkcolor(NO_COLOR);
    setfillstyle(1,WHITE);
@@ -71,10 +73,10 @@ string input_word(const int startX, const int startY, const int endX, const int 
       f=1;
       if(word.size()>50) f=0;
       ch = getch();
-      if (ch == KEY_ENTER) break;
-      if (ch == KEY_ESC){word="Noname.txt"; break;}
+      if(ch == KEY_ENTER) break;
+      if(ch==KEY_ESC){word="Noname.txt"; break;}
       else if (ch == KEY_BACKSPACE && len > 0) word.erase(--len, 1);
-      else if (ch > ' ' && ch <= 'z' && f && ch!='*'){word += ch; ++len;}
+      else if (ch > ' ' && ch <= 'z' && f && ch!='*'){word+=ch; ++len;}
       // Вывод текущего ввода
       bar(startX, startY, endX, endY);
       rectangle(startX, startY, endX, endY); 
