@@ -1,10 +1,11 @@
-#include<menu.h>
+#include<menu.hpp>
 #include<iostream>
 #include<graphics.h>
 #include <vector>
 
 using namespace std;
 
+//Рисование меню
 void draw_menu(){
    setfillstyle(1,COLOR(164, 245, 180));
    bar(0 , 0, wx, wy);
@@ -31,7 +32,22 @@ void draw_menu(){
    outtextxy(25, 185, "Очистить");
 }
 
-//Рисование имени файла или искомого слова1
+//Проверка кнопки
+int prov_but(int x, int y){
+   if(x>=20 && x<=120 && y>=140 && y<=160) use_but(1);
+   if(x>=20 && x<=120 && y>=180 && y<=200) use_but(2);
+   return;
+}
+
+//Использование кнопки
+void use_but(int i){
+   switch(i){
+      case 1: generate();
+      case 2: clear_all();
+   }
+}
+
+//Рисование имени файла или искомого слова
 string input_word(const int startX, const int startY, const int endX, const int endY) {
    string a;
    setbkcolor(NO_COLOR);
@@ -47,7 +63,7 @@ string input_word(const int startX, const int startY, const int endX, const int 
       if(word.size()>50) f=0;
       ch = getch();
       if (ch == KEY_ENTER) break;
-      if (ch == KEY_ESC){word="Noname.html"; break;}
+      if (ch == KEY_ESC){word="Noname.txt"; break;}
       else if (ch == KEY_BACKSPACE && len > 0) word.erase(--len, 1);
       else if (ch > ' ' && ch <= 'z' && f && ch!='*'){word += ch; ++len;}
       // Вывод текущего ввода
@@ -56,4 +72,11 @@ string input_word(const int startX, const int startY, const int endX, const int 
       outtextxy(x1+5, y1+5, word.c_str());
    }
    return word;
+}
+
+//Очистить значения
+void clear_all(){
+   draw_menu();
+   dx=0, dy=0;
+   filename="Noname.txt";
 }
