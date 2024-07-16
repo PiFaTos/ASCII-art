@@ -13,29 +13,23 @@ void draw_menu(){
    setfillstyle(1,COLOR(164, 245, 180));
    bar(0 , 0, wx, wy);
    setfillstyle(1,WHITE);
-   //Имя файла
-   bar(xs1, 60, xs2, 80);
-   rectangle(xs1, 60, xs2, 80);
+   for(int i=0; i<5; ++i){
+      if(i==1){
+         bar(xs1, 60+i*40, xs2/2, 80+i*40);
+         rectangle(xs1, 60+i*40, xs2/2, 80+i*40);
+         bar(xs2-40, 60+i*40, xs2, 80+i*40);
+         rectangle(xs2-40, 60+i*40, xs2, 80+i*40);
+      }
+      else{
+      bar(xs1, 60+i*40, xs2, 80+i*40);
+      rectangle(xs1, 60+i*40, xs2, 80+i*40);
+      }
+   }
    outtextxy(xs1, 40, "Имя файла");
-   //Размеры арта
-   bar(xs1, 110, xs2/2, 130);
-   rectangle(xs1, 110, xs2/2, 130);
    outtextxy(xs1, 90, "Ширина");
-   
-   bar(xs2-40, 110, xs2, 130);
-   rectangle(xs2-40, 110, xs2, 130);
    outtextxy(xs2-40, 90, "Высота");
-   //Сгенерировать
-   bar(xs1, 140, xs2, 160);
-   rectangle(xs1, 140, xs2, 160);
    outtextxy(xs1+5, 145, "Сгенерировать");
-   //Очистить
-   bar(xs1, 180, xs2, 200);
-   rectangle(xs1, 180, xs2, 200);
    outtextxy(xs1+5, 185, "Очистить");
-   //О программе
-   bar(xs1, 220, xs2, 240);
-   rectangle(xs1, 220, xs2, 240);
    outtextxy(xs1+5, 225, "О программе");
 }
 
