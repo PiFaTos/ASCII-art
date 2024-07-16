@@ -6,19 +6,22 @@
 
 using namespace std;
 
-int xs1=20, xs2=120;
+int xs1=20, xs2=435;
 
 //Рисование меню
 void draw_menu(){
+   setcolor(BLACK);
+   setbkcolor(NO_COLOR);
    setfillstyle(1,COLOR(164, 245, 180));
    bar(0 , 0, wx, wy);
    setfillstyle(1,WHITE);
    for(int i=0; i<5; ++i){
+      int k=i*60;
       if(i==1){
-         bar(xs1, 60+i*40, xs2/2, 80+i*40);
-         rectangle(xs1, 60+i*40, xs2/2, 80+i*40);
-         bar(xs2-40, 60+i*40, xs2, 80+i*40);
-         rectangle(xs2-40, 60+i*40, xs2, 80+i*40);
+         bar(xs1, 60+k, xs2/2, 80+k);
+         rectangle(xs1, 60+k, xs2/2, 80+k);
+         bar(xs2-40, 60+k, xs2, 80+k);
+         rectangle(xs2-40, 60+k, xs2, 80+k);
       }
       else{
       bar(xs1, 60+i*40, xs2, 80+i*40);
@@ -26,8 +29,8 @@ void draw_menu(){
       }
    }
    outtextxy(xs1, 40, "Имя файла");
-   outtextxy(xs1, 90, "Ширина");
-   outtextxy(xs2-40, 90, "Высота");
+   outtextxy(xs1, 85, "Ширина");
+   outtextxy(xs2/2+10, 85, "Высота");
    outtextxy(xs1+5, 145, "Сгенерировать");
    outtextxy(xs1+5, 185, "Очистить");
    outtextxy(xs1+5, 225, "О программе");
@@ -47,7 +50,7 @@ void prov_pole(int x, int y){
 //Использование кнопки
 void use_but(int i){
    switch(i){
-      case 1: generate(); break;
+      case 1: /*generate();*/break;
       case 2: clear_all(); break;
    }
    return;
@@ -56,8 +59,8 @@ void use_but(int i){
 //Рисование имени файла или искомого слова
 string input_word(const int startX, const int startY, const int endX, const int endY) {
    string a;
-   setbkcolor(WHITE);
-   setfillstyle(1,COLOR(164, 245, 180));
+   setbkcolor(NO_COLOR);
+   setfillstyle(1,WHITE);
    setcolor(BLACK);
    int f=1;// Флаг
    int ch;
@@ -75,7 +78,7 @@ string input_word(const int startX, const int startY, const int endX, const int 
       // Вывод текущего ввода
       bar(startX, startY, endX, endY);
       rectangle(startX, startY, endX, endY); 
-      outtextxy(x1+5, y1+5, word.c_str());
+      outtextxy(x1+5, y1+1, word.c_str());
    }
    return word;
 }
