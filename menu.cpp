@@ -44,7 +44,7 @@ void prov_pole(int x, int y){
    if(x>=xs1 && x<=xs2 && y>=180 && y<=200){use_but(1); return;}
    if(x>=xs1 && x<=xs2 && y>=60 && y<=80){filename=input_word(xs1, 60, xs2, 80, 0); return;}
    if(x>=xs1 && x<=xs2/2-10 && y>=120 && y<=140){dx=stoi(input_word(xs1, 120, xs2/2-10, 140, 1)); return;}
-   if(x>=xs2/2+10 && x<=xs2 && y>=120 && y<=140){dy=stoi(input_word(xs2/+10, 120, xs2, 140, 1)); return;}
+   if(x>=xs2/2+10 && x<=xs2 && y>=120 && y<=140){dy=stoi(input_word(xs2/2+10, 120, xs2, 140, 1)); return;}
    if(x>=xs1 && x<=xs2/2 && y>=300 && y<=320){about_programm(); return;}
    return;
 }
@@ -80,9 +80,10 @@ string input_word(const int startX, const int startY, const int endX, const int 
       if(!kbhit()) delay(50);
          else {
             f=1;
-            if(word.size()>50) f=0;
+            if(!i){if(word.size()>50) f=0;}
+            else if(word.size()>8) f=0;
             ch = getch();
-            if(ch == KEY_ENTER) break;
+            if(ch==KEY_ENTER) break;
             if(ch==KEY_ESC){
                if(!i) word="Noname.txt";
                else word='0';
