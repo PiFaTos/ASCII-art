@@ -1,3 +1,6 @@
+#include<iostream>
+#include<vector>
+#include<string>
 #include "graphics.h"
 
 int wx=400, wy=400; // размеры окна
@@ -127,5 +130,4 @@ int main() {
       }
    }
    closegraph();
-   return 0;
 }
