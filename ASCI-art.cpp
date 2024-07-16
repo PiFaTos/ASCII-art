@@ -2,6 +2,9 @@
 
 int wx=400, wy=400; // размеры окна
 
+//Преобразование изображения в оттенки серого
+int 
+
 typedef struct {
    char equations[MAX_EQUATIONS][MAX_EQUATION_LENGTH]; // Массив для хранения уравнений
    int error_index[MAX_EQUATIONS]; // Индекс массива, в котором допущена ошибка (-1 если ошибок нет)
