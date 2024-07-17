@@ -6,7 +6,7 @@ using namespace filesystem;
 
 int wx = 500, wy = 600;//размеры окна
 int dx=0, dy=0;//Размеры арта
-string filename="Noname.txt"; //Имя файла
+string filename="Noname.png"; //Имя файла
 fstream file;
 
 int main(void){
@@ -16,17 +16,7 @@ int main(void){
    if(!exists("Arts")) create_directory("Arts");
    //Файл для работы
    file.open(filename);
-   int m;
-   while(1){
-      
-         while(kbhit(1)){
-           m=getch(2);
-           if(m==MOUSE_LCLICK){
-              int x=mousex();  int y=mousey();
-              prov_pole(x, y);
-            }
-         }
-   }
+   cycle();
    file.close();
    closegraph();
    return 0;

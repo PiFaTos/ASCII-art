@@ -11,7 +11,7 @@ using namespace std;
 extern int wx, wy;// Размеры окна
 extern string filename;//Имя файла
 extern int dx, dy;//Размеры арта
-
+void cycle(); //Основной цикл для проверки нажатия
 void generate();//Создать изображение
 void clear_all();//Очистить значения
 void prov_pole(int x, int y);//Проверка кнопки
