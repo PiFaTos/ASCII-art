@@ -113,7 +113,7 @@ string input_word(const int startX, const int startY, const int endX, const int 
             ch=getch(2);
             if(ch==KEY_ENTER || ch==MOUSE_LCLICK) break;
             if(ch==KEY_ESC){
-               if(!i) word="Noname.png";
+               if(!i) word="image.jpg";
                else word='0';
                break;
             }
@@ -141,7 +141,7 @@ string input_word(const int startX, const int startY, const int endX, const int 
 void clear_all(){
    draw_menu();
    dx=0, dy=0;
-   filename="Noname.png";
+   filename="image.jpg";
 }
 
 //Перевод изображения в ascii-art

@@ -6,7 +6,7 @@ using namespace filesystem;
 
 int wx = 500, wy = 600;//размеры окна
 int dx=0, dy=0;//Размеры арта
-string filename="Noname.png"; //Имя файла
+string filename="image.jpg"; //Имя файла
 fstream file;
 
 int main(void){
