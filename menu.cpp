@@ -5,6 +5,7 @@
 #include <fstream>
 #include<convert_image_to_ascii.hpp>
 #include<save_to_png_txt.h>
+
 IMAGE *bgpic;
 IMAGE *pic;
 using namespace std;
