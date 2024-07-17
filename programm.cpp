@@ -18,14 +18,13 @@ int main(void){
    file.open(filename);
    int m;
    while(1){
-      
-         while(kbhit(1)){
-           m=getch(2);
-           if(m==MOUSE_LCLICK){
-              int x=mousex();  int y=mousey();
-              prov_pole(x, y);
-            }
+      if(kbhit(1)){
+         m=getch(2);
+         if(m==MOUSE_LCLICK){
+            int x=mousex();  int y=mousey();
+            prov_pole(x, y);
          }
+      }
    }
    file.close();
    closegraph();
