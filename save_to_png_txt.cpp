@@ -1,15 +1,11 @@
-#include <iostream>
-#include <vector>
-#include <fstream>
-#include <uchar.h>
-#include <filesystem>
+#include <save_to_png_txt.h>
 
-using namespace std;
-using namespace filesystem;
+
 
 void save_to_png_txt(const vector<char8_t> &ascii_data, int width, int height) {
+   string filename1=filename.erase(filename.find('.'));
    // Открытие текстового файла для записи
-   ofstream outfile("Arts/ascii_art.txt");
+   ofstream outfile("Arts/" + filename+ ".txt");
    if (!outfile.is_open()) {
       cerr << "Failed to open file for writing" << endl;
       return; // Можно добавить обработку ошибки или просто выйти
