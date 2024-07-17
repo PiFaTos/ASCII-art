@@ -132,6 +132,28 @@ string input_word(const int startX, const int startY, const int endX, const int 
          setcolor(BLACK);
          rectangle(startX, startY, endX, endY);
          outtextxy(x1+5, y1+1, word.c_str());
+         if(i==1){
+            if(word.size()>0){
+            bar(xs2/2+10, startY, xs2, endY);
+            rectangle(xs2/2+10, startY, xs2, endY);
+            outtextxy(xs2/2+15, y1+1, to_string(stoi(word)/2).c_str());
+            }
+            else{
+               bar(xs2/2+10, startY, xs2, endY);
+               rectangle(xs2/2+10, startY, xs2, endY);
+            }
+         }
+         if(i==2){
+            if(word.size()>0){
+            bar(xs1, startY, xs2/2-10, endY);
+            rectangle(xs1, startY, xs2/2-10, endY);
+            outtextxy(xs1+5, y1+1, to_string(stoi(word)*2).c_str());
+            }
+            else{
+               bar(xs2/2+10, startY, xs2, endY);
+               rectangle(xs2/2+10, startY, xs2, endY);
+            }
+         }
      }
   }
    bar(startX, startY, endX, endY);
