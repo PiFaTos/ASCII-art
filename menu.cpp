@@ -3,6 +3,8 @@
 #include<graphics.h>
 #include <vector>
 #include <fstream>
+#include<convert_image_to_ascii.hpp>
+#include<save_to_png_txt.h>
 IMAGE *bgpic;
 IMAGE *pic;
 using namespace std;
@@ -58,7 +60,7 @@ void prov_pole(int x, int y){
 //Использование кнопки
 void use_but(int i){
    switch(i){
-      case 1: /*generate();*/break;
+      case 1: generate();break;
       case 2: clear_all(); break;
    }
    return;
@@ -133,7 +135,8 @@ void clear_all(){
 void generate(){
    pic=loadBMP(filename.c_str());
    IMAGE *pig;
-   pig=imageresize(pic, dx,dy, COLORONCOLOR_RESIZE);
+   pig=imageresize(pic, dx, dy, COLORONCOLOR_RESIZE);
+   save_to_png_txt(convert_image_to_ascii(pig, dx, dy), dx, dy);
 }
 
 //О программе

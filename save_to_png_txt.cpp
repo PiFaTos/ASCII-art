@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <fstream> 
+#include <uchar.h>
 
 using namespace std;
 
@@ -26,20 +27,23 @@ save_to_png_txt(ascii_data, width, height);
 Этот код сначала преобразует изображение в ASCII-арт с помощью функции convert_image_to_ascii, 
 а затем сохранит полученные данные в файл ascii_art.txt с помощью функции save_to_png_txt.
 */
-void save_to_png_txt(const vector<char>& ascii_data, int width, int height) {
+void save_to_png_txt(const vector<char8_t>& ascii_data, int width, int height) {
     // Открытие текстового файла для записи
     ofstream outfile("ascii_art.txt");
     if (!outfile.is_open()) {
         cerr << "Failed to open file for writing" << endl;
         return; // Можно добавить обработку ошибки или просто выйти
     }
-
+   
+   // Установка локали для корректной записи символов Unicode
+    //outfile.imbue(locale(""));
+    
     // Запись ASCII-арта в текстовый файл
     for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
-            outfile << ascii_data[i * width + j];
+            outfile.write(reinterpret_cast<const char*>(&ascii_data[(i * width + j) * 4]), 4);
         }
-        outfile << endl;
+        outfile.write(reinterpret_cast<const char*>(u8"\n"), 1);
     }
 
     // Закрытие текстового файла
