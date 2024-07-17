@@ -15,7 +15,7 @@ int main(void){
    //Папка для файлов
    if(!exists("Arts")) create_directory("Arts");
    //Файл для работы
-   file.open(filename);
+   //file.open(filename);
    cycle();
    file.close();
    closegraph();
