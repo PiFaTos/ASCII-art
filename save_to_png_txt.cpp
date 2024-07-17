@@ -5,6 +5,7 @@
 #include <uchar.h>
 
 using namespace std;
+using namespace filesystem;
 
 /*
 Необходимо смотреть функции у Кости 
@@ -28,21 +29,10 @@ save_to_png_txt(ascii_data, width, height);
 а затем сохранит полученные данные в файл ascii_art.txt с помощью функции save_to_png_txt.
 */
 void save_to_png_txt(const vector<char8_t>& ascii_data, int width, int height) {
-   //Проверка на создание папки ART
-   if (!fs::exists("ART")) {
-      fs::create_directory("ART");
-   }
-   
    //Открытие текстового файла для записи из папки ART
    ofstream outfile("ART/ascii_art.txt");
-       // Запись ASCII-арта в текстовый файл
-    for (int i = 0; i < height; i++) {
-        for (int j = 0; j < width; j++) {
-            outfile.write(reinterpret_cast<const char*>(&ascii_data[(i * width + j) * 4]), 4);
-        }
-        outfile.write(reinterpret_cast<const char*>(u8"\n"), 1);
-    }
-   
+   // Запись ASCII-арта в текстовый файл
+   outfile.write(ascii_data.data(), ascii_data.size());
    // Закрытие текстового файла
    outfile.close();
 }
