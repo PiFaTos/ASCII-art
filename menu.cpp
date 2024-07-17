@@ -105,18 +105,18 @@ string input_word(const int startX, const int startY, const int endX, const int 
             else if (ch == KEY_BACKSPACE && len>0) word.erase(--len, 1);
             else if (ch>' ' && ch<='z' && f && ch!='*'){
                if(!i){word+=ch; ++len;}
-               else if(ch>48 && ch<=57){word+=ch; ++len;}
+               else if(ch>=48 && ch<=57){word+=ch; ++len;}
             }
             // Вывод текущего ввода
             bar(startX, startY, endX, endY);
-            rectangle(startX, startY, endX, endY); 
             setcolor(BLACK);
+            rectangle(startX, startY, endX, endY); 
             outtextxy(x1+5, y1+1, word.c_str());
          }
    }
    bar(startX, startY, endX, endY);
-   rectangle(startX, startY, endX, endY); 
    setcolor(BLACK);
+   rectangle(startX, startY, endX, endY); 
    outtextxy(x1+5, y1+1, word.c_str());
    draw_cursor(startX+textwidth(word.c_str())+7, startY+2, WHITE);
    return word;
