@@ -11,7 +11,7 @@ using namespace std;
 
 int xs1=20, xs2=435;
 
-//Рисование меню
+//Рисование меню1
 void draw_menu(){
    setcolor(BLACK);
    setbkcolor(NO_COLOR);
@@ -107,8 +107,17 @@ string input_word(const int startX, const int startY, const int endX, const int 
       if (!kbhit(1)) delay(50);
       else{
          f=1;
-         if (!i){if (word.size()>50) f=0;}
-         else if (word.size()>8) f=0;
+         if(!i){if(word.size()>50) f=0;}
+         else if(word.size()>0){
+            if(i==1){
+               if(word.size()>8)
+                  f=0;
+            }
+            else{
+               if(stoi(word)*4>=1000000000 || word.size()>8)
+                  f=0;
+            }
+         }
          ch=getch(2);
          if (ch==KEY_ENTER || ch==MOUSE_LCLICK){
                // Обновление dy, если dx изменен

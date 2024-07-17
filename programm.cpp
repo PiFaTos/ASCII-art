@@ -14,8 +14,6 @@ int main(void){
    draw_menu();
    //Папка для файлов
    if(!exists("Arts")) create_directory("Arts");
-   //Файл для работы
-   file.open(filename);
    cycle();
    file.close();
    closegraph();
