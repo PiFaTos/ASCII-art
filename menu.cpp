@@ -55,7 +55,6 @@ void cycle(){
          if(m==MOUSE_LCLICK){
             int x=mousex();  int y=mousey();
             prov_pole(x, y);
-            cout<<"1\n";
          }
       }
    }
