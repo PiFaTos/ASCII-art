@@ -45,7 +45,20 @@ void draw_menu(){
    outtextxy(xs1+5, 240, "Очистить");
    outtextxy(xs1+5, 300, "О программе");
 }
-
+//Основной цикл для проверки нажатия
+void cycle(){
+   int m;
+   while(1){
+      if(kbhit(1)){
+         m=getch(2);
+         if(m==MOUSE_LCLICK){
+            int x=mousex();  int y=mousey();
+            prov_pole(x, y);
+            cout<<"1\n";
+         }
+      }
+   }
+}
 //Проверка кнопки
 void prov_pole(int x, int y){
    if(x>=xs1 && x<=xs2 && y>=240 && y<=260){use_but(2); return;}
@@ -92,13 +105,13 @@ string input_word(const int startX, const int startY, const int endX, const int 
    while(1){
       draw_cursor(startX+textwidth(word.c_str())+7, startY+2, cur<10?BLACK:WHITE);
       cur=(cur+1)%20;
-      if(!kbhit()) delay(50);
+      if(!kbhit(1)) delay(50);
          else {
             f=1;
             if(!i){if(word.size()>50) f=0;}
             else if(word.size()>8) f=0;
-            ch=getch();
-            if(ch==KEY_ENTER) break;
+            ch=getch(2);
+            if(ch==KEY_ENTER || ch==MOUSE_LCLICK) break;
             if(ch==KEY_ESC){
                if(!i) word="Noname.png";
                else word='0';
@@ -144,10 +157,8 @@ void about_programm(){
    clearviewport();
    bgpic=loadBMP("O_programme.bmp");
    putimage(0, 0, bgpic,COPY_PUT,getmaxx(),getmaxy());
-   swapbuffers();
    getch(2);// ждать нажатия мыши или клавиатуры
-   clearviewport();
+   freeimage(bgpic);
    draw_menu();
-   swapbuffers();
    return;
 }
