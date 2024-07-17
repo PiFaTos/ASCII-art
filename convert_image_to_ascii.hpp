@@ -8,7 +8,6 @@
 
 using namespace std;
 
-extern IMAGE *pig;
 vector<char8_t> convert_image_to_ascii(IMAGE *image, int width, int height);
 
 #endif  /* CONVERT_IMAGE_TO_ASCII_HPP */
