@@ -11,7 +11,7 @@ using namespace std;
 
 int xs1=20, xs2=435;
 
-//Рисование меню
+//Рисование меню1
 void draw_menu(){
    setcolor(BLACK);
    setbkcolor(NO_COLOR);
