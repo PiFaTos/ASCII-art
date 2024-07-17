@@ -4,16 +4,15 @@
 
 void save_to_png_txt(const vector<char8_t> &ascii_data, int width, int height) {
    string filename1=filename.erase(filename.find('.'));
-   // Открытие текстового файла для записи
+   // ГЋГІГЄГ°Г»ГІГЁГҐ ГІГҐГЄГ±ГІГ®ГўГ®ГЈГ® ГґГ Г©Г«Г  Г¤Г«Гї Г§Г ГЇГЁГ±ГЁ
    ofstream outfile("Arts/" + filename+ ".txt");
    if (!outfile.is_open()) {
       cerr << "Failed to open file for writing" << endl;
-      return; // Можно добавить обработку ошибки или просто выйти
+      return; // ГЊГ®Г¦Г­Г® Г¤Г®ГЎГ ГўГЁГІГј Г®ГЎГ°Г ГЎГ®ГІГЄГі Г®ГёГЁГЎГЄГЁ ГЁГ«ГЁ ГЇГ°Г®Г±ГІГ® ГўГ»Г©ГІГЁ
    }
    outfile.write("\xEF\xBB\xBF", 3);
-   // Запись ASCII-арта в текстовый файл
+   // Г‡Г ГЇГЁГ±Гј ASCII-Г Г°ГІГ  Гў ГІГҐГЄГ±ГІГ®ГўГ»Г© ГґГ Г©Г«
    outfile.write((const char *)ascii_data.data(), ascii_data.size());
-   // Закрытие текстового файла
+   // Г‡Г ГЄГ°Г»ГІГЁГҐ ГІГҐГЄГ±ГІГ®ГўГ®ГЈГ® ГґГ Г©Г«Г 
    outfile.close();
 }
-
