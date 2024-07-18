@@ -1,11 +1,12 @@
 #include <menu.hpp>
 #include <filesystem>
 #include <graphics.h>
+
 using namespace std;
 using namespace filesystem;
 
-int wx = 500, wy = 600;//размеры окна
-int dx=200, dy=100;//Размеры арта
+int wx = 500, wy = 600; //Размеры окна
+int dx=200, dy=100; //Размеры арта
 string filename="image.jpg"; //Имя файла
 fstream file;
 
