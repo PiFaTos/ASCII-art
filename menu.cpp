@@ -5,12 +5,13 @@
 #include <fstream>
 #include<convert_image_to_ascii.hpp>
 #include<save_to_png_txt.h>
+#include <cmath>
 IMAGE *bgpic;
 IMAGE *pic;
 using namespace std;
 
 int xs1=20, xs2=435;
-
+int kf;
 //Рисование меню
 void draw_menu() {
    setcolor(BLACK);
@@ -65,7 +66,6 @@ void prov_pole(int x, int y) {
    if (x>=xs1 && x<=xs2 && y>=180 && y<=200) {use_but(1); return;}
    if (x>=xs1 && x<=xs2 && y>=60 && y<=80) {filename=input_word(xs1, 60, xs2, 80, 0); return;}
    if (x>=xs1 && x<=xs2/2-10 && y>=120 && y<=140) {dx=stoi(input_word(xs1, 120, xs2/2-10, 140, 1)); return;}
-   if (x>=xs2/2+10 && x<=xs2 && y>=120 && y<=140) {dy=stoi(input_word(xs2/2+10, 120, xs2, 140, 2)); return;}
    if (x>=xs1 && x<=xs2/2 && y>=300 && y<=320) {about_programm(); return;}
    return;
 }
@@ -112,31 +112,25 @@ string input_word(const int startX, const int startY, const int endX, const int 
       else {
          f=1;
          if (!i) {if (word.size()>50) f=0;}
-         else if (word.size()>0) {
-            if (i==1) {
-               if (word.size()>8)
-                  f=0;
-            }
-            else {
-               if (stoi(word)*4>=1000000000 || word.size()>8/* || stoi(word)>imageheight(filename.c_str())*/)
-                  f=0;
-            }
-         }
+         else if (word.size()>0 && (word.size()>8 || stoi(word)*4>=1000000000)) f=0;
          ch=getch(2);
-         if (ch==KEY_ENTER || ch==MOUSE_LCLICK) {
-            //if(!i) pic=loadBMP(filename.c_str());
+         if (ch == KEY_ENTER || ch == MOUSE_LCLICK) {
+            if(!i){
+               if(!word.find('.')) break;
+               pic=loadBMP(word.c_str());
+               kf=imageheight(pic)/imagewidth(pic);
+               freeimage(pic);
+            }
             // Обновление dy, если dx изменен
-            if (i==1) dy=stoi(word)/2;
-            // Обновление dx, если dy изменен
-            if (i==2) dx=stoi(word)*2;
+            if (i == 1) dy=ceil(stoi(word)/(kf*1.86));
             break;
          }
-         if (ch==KEY_ESC) {
-            if (!i) word="image.jpg";
+         if (ch == KEY_ESC) {
+            if (!i) word="";
             else word='0';
             break;
          }
-         else if (ch==KEY_BACKSPACE && len > 0) word.erase(--len, 1);
+         else if (ch == KEY_BACKSPACE && len > 0) word.erase(--len, 1);
          else if (ch > ' ' && ch <= 'z' && f && ch != '*') {
             if (!i) {word+=ch; ++len;}
             else if (ch>=48 && ch<=57) {word+=ch; ++len;}
@@ -150,26 +144,15 @@ string input_word(const int startX, const int startY, const int endX, const int 
             if (word.size()>0) {
                bar(xs2/2+10, startY, xs2, endY);
                rectangle(xs2/2+10, startY, xs2, endY);
-               outtextxy(xs2/2+15, y1+1, to_string(stoi(word)/2).c_str());
-            }
-            else {
-               bar(xs2/2+10, startY, xs2, endY);
-               rectangle(xs2/2+10, startY, xs2, endY);
+               outtextxy(xs2/2+15, y1+1, to_string(ceil(stoi(word)/(kf*1.86))).c_str());
             }
          }
-         if (i==2) {
-            if (word.size()>0) {
-               bar(xs1, startY, xs2/2-10, endY);
-               rectangle(xs1, startY, xs2/2-10, endY);
-               outtextxy(xs1+5, y1+1, to_string(stoi(word)*2).c_str());
-            }
             else {
                bar(xs2/2+10, startY, xs2, endY);
                rectangle(xs2/2+10, startY, xs2, endY);
             }
          }
       }
-   }
    bar(startX, startY, endX, endY);
    setcolor(BLACK);
    if (i==1) {
@@ -177,27 +160,21 @@ string input_word(const int startX, const int startY, const int endX, const int 
       rectangle(xs2/2+10, startY, xs2, endY);
       outtextxy(xs2/2+15, y1+1, to_string(dy).c_str());
    }
-   if (i==2) {
-      bar(xs1, startY, xs2/2-10, endY);
-      rectangle(xs1, startY, xs2/2-10, endY);
-      outtextxy(xs1+5, y1+1, to_string(dx).c_str());
-   }
    rectangle(startX, startY, endX, endY);
    outtextxy(x1+5, y1+1, word.c_str());
    draw_cursor(startX+textwidth(word.c_str())+7, startY+2, WHITE);
    return word;
 }
-
 //Очистить значения
 void clear_all() {
    draw_menu();
-   dx=200, dy=100;
-   filename="image.jpg";
+   dx=200, dy=108;
+   filename="";
 }
 
 //Перевод изображения в ascii-art
 void generate() {
-   pic=loadBMP(filename.c_str());
+   //pic=loadBMP(filename.c_str());
    IMAGE *pig;
    pig=imageresize(pic, dx, dy, HALFTONE_RESIZE);
    save_to_png_txt(convert_image_to_ascii(pig, dx, dy), dx, dy);
