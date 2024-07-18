@@ -12,6 +12,7 @@ using namespace std;
 
 int xs1=20, xs2=435;
 double kf;
+int flag=0;
 //Рисование меню
 void draw_menu() {
    setcolor(BLACK);
@@ -30,8 +31,8 @@ void draw_menu() {
          rectangle(xs2/2+10, 60+k, xs2, 80+k);
       }
       else {
-         bar(xs1, 60+k, xs2/2-80, 80+k);
-         rectangle(xs1, 60+k, xs2/2-80, 80+k);
+         bar(xs1, 60+k, xs2/2-10, 80+k);
+         rectangle(xs1, 60+k, xs2/2-10, 80+k);
       }
    }
    outtextxy(xs1+5, 61, filename.c_str());
@@ -62,11 +63,11 @@ void cycle() {
 }
 //Проверка кнопки
 void prov_pole(int x, int y) {
-   if (x>=xs1 && x<=xs2 && y>=240 && y<=260) {use_but(2); return;}
-   if (x>=xs1 && x<=xs2 && y>=180 && y<=200) {use_but(1); return;}
-   if (x>=xs1 && x<=xs2 && y>=60 && y<=80) {filename=input_word(xs1, 60, xs2, 80, 0); return;}
-   if (x>=xs1 && x<=xs2/2-10 && y>=120 && y<=140) {dx=stoi(input_word(xs1, 120, xs2/2-10, 140, 1)); return;}
-   if (x>=xs1 && x<=xs2/2 && y>=300 && y<=320) {about_programm(); return;}
+   if (x>=xs1 && x<=xs2 && y>=240 && y<=260) {use_but(2); flag=0; return;}
+   if (x>=xs1 && x<=xs2 && y>=180 && y<=200  && flag) {use_but(1); flag=0; return;}
+   if (x>=xs1 && x<=xs2 && y>=60 && y<=80) {filename=input_word(xs1, 60, xs2, 80, 0); flag=1; return;}
+   if (x>=xs1 && x<=xs2/2-10 && y>=120 && y<=140 && flag) {dx=stoi(input_word(xs1, 120, xs2/2-10, 140, 1)); return;}
+   if (x>=xs1 && x<=xs2/2-10 && y>=300 && y<=320) {about_programm(); return;}
    return;
 }
 
