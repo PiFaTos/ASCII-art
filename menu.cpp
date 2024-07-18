@@ -11,28 +11,28 @@ using namespace std;
 
 int xs1=20, xs2=435;
 
-//Рисование меню1
-void draw_menu(){
+//Рисование меню
+void draw_menu() {
    setcolor(BLACK);
    setbkcolor(NO_COLOR);
    setfillstyle(1,COLOR(250, 128, 114));
-   bar(0 , 0, wx, wy);
+   bar(0, 0, wx, wy);
    setfillstyle(1,WHITE);
    bar(xs1, 60, xs2, 80);
    rectangle(xs1, 60, xs2, 80);
-   for(int i=1; i<5; ++i){
+   for (int i=1; i<5; ++i) {
       int k=i*60;
-      if(i==1){
+      if (i==1) {
          bar(xs1, 60+k, xs2/2-10, 80+k);
          rectangle(xs1, 60+k, xs2/2-10, 80+k);
          bar(xs2/2+10, 60+k, xs2, 80+k);
          rectangle(xs2/2+10, 60+k, xs2, 80+k);
-     }
-      else{
-      bar(xs1, 60+k, xs2/2-80, 80+k);
-      rectangle(xs1, 60+k, xs2/2-80, 80+k);
-     }
-  }
+      }
+      else {
+         bar(xs1, 60+k, xs2/2-80, 80+k);
+         rectangle(xs1, 60+k, xs2/2-80, 80+k);
+      }
+   }
    outtextxy(xs1+5, 61, filename.c_str());
    string dx_str=to_string(dx);
    string dy_str=to_string(dy);
@@ -46,45 +46,49 @@ void draw_menu(){
    outtextxy(xs1+5, 300, "О программе");
 }
 //Основной цикл для проверки нажатия
-void cycle(){
+void cycle() {
    int m;
-   while(1){
-      if(kbhit(1)){
+   while (1) {
+      if (kbhit(1)) {
          m=getch(2);
-         if(m==MOUSE_LCLICK){
-            int x=mousex();  int y=mousey();
+         if (m==MOUSE_LCLICK) {
+            int x=mousex();
+            int y=mousey();
             prov_pole(x, y);
-        }
-     }
-  }
+         }
+      }
+   }
 }
 //Проверка кнопки
-void prov_pole(int x, int y){
-   if(x>=xs1 && x<=xs2 && y>=240 && y<=260){use_but(2); return;}
-   if(x>=xs1 && x<=xs2 && y>=180 && y<=200){use_but(1); return;}
-   if(x>=xs1 && x<=xs2 && y>=60 && y<=80){filename=input_word(xs1, 60, xs2, 80, 0); return;}
-   if(x>=xs1 && x<=xs2/2-10 && y>=120 && y<=140){dx=stoi(input_word(xs1, 120, xs2/2-10, 140, 1)); return;}
-   if(x>=xs2/2+10 && x<=xs2 && y>=120 && y<=140){dy=stoi(input_word(xs2/2+10, 120, xs2, 140, 2)); return;}
-   if(x>=xs1 && x<=xs2/2 && y>=300 && y<=320){about_programm(); return;}
+void prov_pole(int x, int y) {
+   if (x>=xs1 && x<=xs2 && y>=240 && y<=260) {use_but(2); return;}
+   if (x>=xs1 && x<=xs2 && y>=180 && y<=200) {use_but(1); return;}
+   if (x>=xs1 && x<=xs2 && y>=60 && y<=80) {filename=input_word(xs1, 60, xs2, 80, 0); return;}
+   if (x>=xs1 && x<=xs2/2-10 && y>=120 && y<=140) {dx=stoi(input_word(xs1, 120, xs2/2-10, 140, 1)); return;}
+   if (x>=xs2/2+10 && x<=xs2 && y>=120 && y<=140) {dy=stoi(input_word(xs2/2+10, 120, xs2, 140, 2)); return;}
+   if (x>=xs1 && x<=xs2/2 && y>=300 && y<=320) {about_programm(); return;}
    return;
 }
 
 //Использование кнопки
-void use_but(int i){
-   switch(i){
-      case 1: generate();break;
-      case 2: clear_all(); break;
-  }
-   return;
+void use_but(int i) {
+   switch (i) {
+   case 1:
+      generate();
+      break;
+   case 2:
+      clear_all();
+      break;
+   }
 }
 
-void draw_cursor(int x, int y, int c){// рисование мигающего курсора
+void draw_cursor(int x, int y, int c) { //Рисование мигающего курсора
    setcolor(c);
    line(x, y, x, y+textheight("A")-1);
 }
 
 //Рисование имени файла или искомого слова
-string input_word(const int startX, const int startY, const int endX, const int endY, const int i){
+string input_word(const int startX, const int startY, const int endX, const int endY, const int i) {
    setbkcolor(NO_COLOR);
    setfillstyle(1, WHITE);
    setcolor(BLACK);
@@ -101,78 +105,79 @@ string input_word(const int startX, const int startY, const int endX, const int 
    rectangle(startX, startY, endX, endY);
    setcolor(BLACK);
    outtextxy(x1+5, y1+1, word.c_str());
-   while (1){
+   while (1) {
       draw_cursor(startX+textwidth(word.c_str())+7, startY+2, cur < 10 ? BLACK : WHITE);
       cur=(cur+1) % 20;
       if (!kbhit(1)) delay(50);
-      else{
+      else {
          f=1;
-         if(!i){if(word.size()>50) f=0;}
-         else if(word.size()>0){
-            if(i==1){
-               if(word.size()>8)
+         if (!i) {if (word.size()>50) f=0;}
+         else if (word.size()>0) {
+            if (i==1) {
+               if (word.size()>8)
                   f=0;
             }
-            else{
-               if(stoi(word)*4>=1000000000 || word.size()>8)
+            else {
+               if (stoi(word)*4>=1000000000 || word.size()>8/* || stoi(word)>imageheight(filename.c_str())*/)
                   f=0;
             }
          }
          ch=getch(2);
-         if (ch==KEY_ENTER || ch==MOUSE_LCLICK){
-               // Обновление dy, если dx изменен
-               if(i==1) dy=stoi(word)/2;
-               // Обновление dx, если dy изменен
-               if(i==2) dx=stoi(word)*2;
-               break;
-        }
-         if (ch==KEY_ESC){
-               if (!i) word="image.jpg";
-               else word='0';
-               break;
-        }
+         if (ch==KEY_ENTER || ch==MOUSE_LCLICK) {
+            //if(!i) pic=loadBMP(filename.c_str());
+            // Обновление dy, если dx изменен
+            if (i==1) dy=stoi(word)/2;
+            // Обновление dx, если dy изменен
+            if (i==2) dx=stoi(word)*2;
+            break;
+         }
+         if (ch==KEY_ESC) {
+            if (!i) word="image.jpg";
+            else word='0';
+            break;
+         }
          else if (ch==KEY_BACKSPACE && len > 0) word.erase(--len, 1);
-         else if (ch > ' ' && ch <= 'z' && f && ch != '*'){
-               if (!i){word+=ch; ++len;}
-               else if (ch>=48 && ch<=57){word+=ch; ++len;}
-        }
+         else if (ch > ' ' && ch <= 'z' && f && ch != '*') {
+            if (!i) {word+=ch; ++len;}
+            else if (ch>=48 && ch<=57) {word+=ch; ++len;}
+         }
          // Вывод текущего ввода
          bar(startX, startY, endX, endY);
          setcolor(BLACK);
          rectangle(startX, startY, endX, endY);
          outtextxy(x1+5, y1+1, word.c_str());
-         if(i==1){
-            if(word.size()>0){
-            bar(xs2/2+10, startY, xs2, endY);
-            rectangle(xs2/2+10, startY, xs2, endY);
-            outtextxy(xs2/2+15, y1+1, to_string(stoi(word)/2).c_str());
+         if (i==1) {
+            if (word.size()>0) {
+               bar(xs2/2+10, startY, xs2, endY);
+               rectangle(xs2/2+10, startY, xs2, endY);
+               outtextxy(xs2/2+15, y1+1, to_string(stoi(word)/2).c_str());
             }
-            else{
+            else {
                bar(xs2/2+10, startY, xs2, endY);
                rectangle(xs2/2+10, startY, xs2, endY);
             }
          }
-         if(i==2){
-            if(word.size()>0){
-            bar(xs1, startY, xs2/2-10, endY);
-            rectangle(xs1, startY, xs2/2-10, endY);
-            outtextxy(xs1+5, y1+1, to_string(stoi(word)*2).c_str());
+         if (i==2) {
+            if (word.size()>0) {
+               bar(xs1, startY, xs2/2-10, endY);
+               rectangle(xs1, startY, xs2/2-10, endY);
+               outtextxy(xs1+5, y1+1, to_string(stoi(word)*2).c_str());
             }
-            else{
+            else {
                bar(xs2/2+10, startY, xs2, endY);
                rectangle(xs2/2+10, startY, xs2, endY);
             }
          }
-     }
-  }
+      }
+   }
    bar(startX, startY, endX, endY);
    setcolor(BLACK);
-   if(i==1){
+   if (i==1) {
       bar(xs2/2+10, startY, xs2, endY);
       rectangle(xs2/2+10, startY, xs2, endY);
       outtextxy(xs2/2+15, y1+1, to_string(dy).c_str());
    }
-   if(i==2){
+   if (i==2) {
       bar(xs1, startY, xs2/2-10, endY);
       rectangle(xs1, startY, xs2/2-10, endY);
       outtextxy(xs1+5, y1+1, to_string(dx).c_str());
@@ -184,28 +189,28 @@ string input_word(const int startX, const int startY, const int endX, const int 
 }
 
 //Очистить значения
-void clear_all(){
+void clear_all() {
    draw_menu();
    dx=200, dy=100;
    filename="image.jpg";
 }
 
 //Перевод изображения в ascii-art
-void generate(){
+void generate() {
    pic=loadBMP(filename.c_str());
    IMAGE *pig;
-   pig=imageresize(pic, dx, dy, COLORONCOLOR_RESIZE);
+   pig=imageresize(pic, dx, dy, HALFTONE_RESIZE);
    save_to_png_txt(convert_image_to_ascii(pig, dx, dy), dx, dy);
    freeimage(pic);
    freeimage(pig);
 }
 
 //О программе
-void about_programm(){
+void about_programm() {
    clearviewport();
    bgpic=loadBMP("O_programme.bmp");
    putimage(0, 0, bgpic,COPY_PUT,getmaxx(),getmaxy());
-   getch(2);// ждать нажатия мыши или клавиатуры
+   getch(2); //ждать нажатия мыши или клавиатуры
    freeimage(bgpic);
    draw_menu();
    return;
