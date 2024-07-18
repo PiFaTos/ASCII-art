@@ -98,8 +98,7 @@ string input_word(const int startX, const int startY, const int endX, const int 
    int cur=0;
    string word;
    if (!i) word=filename;
-   else if (i==1) word=to_string(dx);
-   else word=to_string(dy);
+   else word=to_string(dx);
    int len=word.size();
    int x1=startX, y1=startY;
    bar(startX, startY, endX, endY);
@@ -117,10 +116,11 @@ string input_word(const int startX, const int startY, const int endX, const int 
          ch=getch(2);
          if (ch == KEY_ENTER || ch == MOUSE_LCLICK) {
             if(!i){
-               if(!word.find('.')) break;
-               pic=loadBMP(word.c_str());
-               kf=imagewidth(pic)*1.0/imageheight(pic);
-               freeimage(pic);
+               if(word.find(".png")!= std::string::npos || word.find(".jpg")!= std::string::npos || word.find(".bmp")!= std::string::npos || word.find(".gif")!= std::string::npos){
+                  pic=loadBMP(word.c_str());
+                  kf=imagewidth(pic)*1.0/imageheight(pic);
+                  freeimage(pic);
+               }
             }
             // Обновление dy, если dx изменен
             if (i == 1) dy=ceil(stoi(word)/(kf*1.86));
@@ -128,7 +128,7 @@ string input_word(const int startX, const int startY, const int endX, const int 
          }
          if (ch == KEY_ESC) {
             if (!i) word="";
-            else word='0';
+            else word="200";
             break;
          }
          else if (ch == KEY_BACKSPACE && len > 0) word.erase(--len, 1);
