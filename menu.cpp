@@ -11,7 +11,7 @@ IMAGE *pic;
 using namespace std;
 
 int xs1=20, xs2=435;
-int kf;
+double kf;
 //Рисование меню
 void draw_menu() {
    setcolor(BLACK);
@@ -118,7 +118,7 @@ string input_word(const int startX, const int startY, const int endX, const int 
             if(!i){
                if(!word.find('.')) break;
                pic=loadBMP(word.c_str());
-               kf=imageheight(pic)/imagewidth(pic);
+               kf=imagewidth(pic)*1.0/imageheight(pic);
                freeimage(pic);
             }
             // Обновление dy, если dx изменен
@@ -144,7 +144,7 @@ string input_word(const int startX, const int startY, const int endX, const int 
             if (word.size()>0) {
                bar(xs2/2+10, startY, xs2, endY);
                rectangle(xs2/2+10, startY, xs2, endY);
-               outtextxy(xs2/2+15, y1+1, to_string(ceil(stoi(word)/(kf*1.86))).c_str());
+               outtextxy(xs2/2+15, y1+1, to_string((int)ceil(stoi(word)/(kf*1.86))).c_str());
             }
          }
             else {
@@ -174,7 +174,7 @@ void clear_all() {
 
 //Перевод изображения в ascii-art
 void generate() {
-   //pic=loadBMP(filename.c_str());
+   pic=loadBMP(filename.c_str());
    IMAGE *pig;
    pig=imageresize(pic, dx, dy, HALFTONE_RESIZE);
    save_to_png_txt(convert_image_to_ascii(pig, dx, dy), dx, dy);
