@@ -105,7 +105,7 @@ string input_word(const int startX, const int startY, const int endX, const int 
    bar(startX, startY, endX, endY);
    rectangle(startX, startY, endX, endY);
    setcolor(BLACK);
-   outtextxy(x1+5, y1+1, word.c_str());
+   outtextxy(startX+5, startY+1, word.c_str());
    while (1) {
       draw_cursor(startX+textwidth(word.c_str())+7, startY+2, cur < 10 ? BLACK : WHITE);
       cur=(cur+1) % 20;
@@ -140,7 +140,7 @@ string input_word(const int startX, const int startY, const int endX, const int 
          bar(startX, startY, endX, endY);
          setcolor(BLACK);
          rectangle(startX, startY, endX, endY);
-         outtextxy(x1+5, y1+1, word.c_str());
+         outtextxy(startX+5, startY+1, word.c_str());
          if (i==1) {
             if (word.size()>0) {
                bar(xs2/2+10, startY, xs2, endY);
@@ -148,12 +148,13 @@ string input_word(const int startX, const int startY, const int endX, const int 
                outtextxy(xs2/2+15, y1+1, to_string((int)ceil(stoi(word)/(kf*1.86))).c_str());
             }
          }
-            else {
-               bar(xs2/2+10, startY, xs2, endY);
-               rectangle(xs2/2+10, startY, xs2, endY);
-            }
+         else {
+            bar(startX, startY, xs2, endY);
+            rectangle(startX, startY, xs2, endY);
+            outtextxy(startX+5, startY+1, word.c_str());
          }
       }
+   }
    bar(startX, startY, endX, endY);
    setcolor(BLACK);
    if (i==1) {
